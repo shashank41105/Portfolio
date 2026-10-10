@@ -414,6 +414,34 @@
       margin-top: 48px;
     }
 
+    .project-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 28px;
+    }
+
+    .project-filter {
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 8px 15px;
+      background: transparent;
+      color: var(--muted);
+      font: inherit;
+      font-size: 12px;
+      cursor: pointer;
+      transition: color .2s, border-color .2s, background .2s;
+    }
+
+    .project-filter:hover,
+    .project-filter[aria-pressed="true"] {
+      color: var(--text);
+      border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 12%, transparent);
+    }
+
+    .project-card[hidden] { display: none; }
+
     .project-card {
       background: var(--card-bg);
       border: 1px solid var(--border);
@@ -438,6 +466,14 @@
       font-size: 60px;
       position: relative;
       overflow: hidden;
+    }
+
+    .project-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 10px;
+      background: #f8fafc;
     }
 
     .project-thumb::after {
@@ -497,6 +533,25 @@
     .project-link:hover {
       gap: 10px;
     }
+
+    .project-case-study {
+      margin-top: 14px;
+      border-top: 1px solid var(--border);
+      padding-top: 12px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .project-case-study summary {
+      color: var(--text);
+      cursor: pointer;
+      font-size: 11px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .project-case-study p { margin: 10px 0 0; line-height: 1.65; }
+    .project-case-study strong { color: var(--text); }
 
     /* ── SKILLS ── */
     .skills-grid {
@@ -652,7 +707,7 @@
 
   <!-- ═══ HERO ═══ -->
   <section id="hero" style="max-width:100%;padding-top:120px;">
-    <p class="tagline"> AI Enthusiast</p>
+    <p class="tagline">AI / LLM Engineer · Agentic Systems</p>
     <div class="name-photo-wrap">
       <div class="avatar-circle" id="avatarCircle">
         <img
@@ -664,8 +719,8 @@
     </div>
     <span class="sparkle">✦</span>
     <p class="hero-bio">
-      I'm <strong>Padala Sai Shashank</strong> — a passionate B.Tech Computer Science student & AI Enthusiast building
-      intelligent systems and digital experiences.
+      I'm <strong>Padala Sai Shashank</strong> — a B.Tech Computer Science student building AI agents, RAG systems, and
+      thoughtful digital products.
     </p>
     <div class="hero-cta">
       <a href="#work" class="btn-primary">View My Work ↓</a>
@@ -712,18 +767,9 @@
         </div>
 
         <div class="about-text reveal">
-          <p>My passion lies at the intersection of <strong>Computer Science, AI, and problem-solving</strong> —
-            building systems that are intelligent, efficient, and meaningful.</p>
-          <p>I am a passionate and growth-driven <strong>B.Tech Computer Science student</strong> with a strong
-            foundation in core subjects including Data Structures, Machine Learning, Artificial Intelligence,
-            <strong>Generative AI, Agentic AI</strong>, Operating Systems, DBMS, Computer Organization, and Discrete
-            Mathematics.
-          </p>
-          <p>I enjoy <strong>understanding concepts deeply</strong> rather than just memorizing them — diving into the
-            "why" behind every system, algorithm, and architectural decision.</p>
-          <p>My AI interests span <strong>LLM architecture, RAG pipelines, vector databases, embeddings, fine-tuning &
-              deployment</strong>. On the cloud side, I'm actively pursuing an <strong>AWS-focused career path</strong>.
-          </p>
+          <p>I’m a <strong>B.Tech Computer Science student (2023–2027)</strong> focused on building useful AI products and reliable backend systems.</p>
+          <p>My recent work explores <strong>stateful multi-agent workflows, retrieval-augmented generation, local LLMs, and human-approved automation</strong>.</p>
+          <p>I enjoy taking projects end to end: shaping the architecture, building the API and interface, and making the system observable and safe to use.</p>
         </div>
       </div>
     </div>
@@ -733,76 +779,54 @@
   <section id="work">
     <p class="section-label reveal">Selected Work</p>
     <h2 class="section-title reveal">Featured<br>Projects</h2>
+    <div class="project-filters reveal" role="group" aria-label="Filter projects">
+      <button class="project-filter" type="button" data-filter="all" aria-pressed="true">All projects</button>
+      <button class="project-filter" type="button" data-filter="agents" aria-pressed="false">AI agents</button>
+      <button class="project-filter" type="button" data-filter="rag" aria-pressed="false">RAG & research</button>
+      <button class="project-filter" type="button" data-filter="apps" aria-pressed="false">Apps & data</button>
+    </div>
     <div class="projects-grid">
-
-      <div class="project-card reveal">
-        <div class="project-thumb" style="background:linear-gradient(135deg,#0d1b2a,#1b263b,#415a77);">
-          <span style="color:#CCFF00;position:relative;z-index:2;">🔐</span>
-        </div>
-        <div class="project-info">
-          <div class="project-tags"><span class="tag">Python</span><span class="tag">MySQL</span><span
-              class="tag">DBMS</span></div>
-          <div class="project-name">CRIME RECORD MANAGEMENT</div>
-          <p class="project-desc">A database-driven system for managing and querying crime records using complex SQL —
-            JOINs, UNION, INTERSECT, and EXCEPT for investigative insights.</p>
-          <a href="https://github.com/shashank41105" target="_blank" class="project-link">View on GitHub →</a>
-        </div>
+      <div class="project-card reveal" data-category="agents">
+        <div class="project-thumb" style="background:#f8fafc;"><img src="assets/zeromttr-architecture.jpg" alt="ZeroMTTR architecture: Slack incident intake, multi-agent investigation, approval flow, knowledge base, and GitHub post-mortem" loading="lazy"></div>
+        <div class="project-info"><div class="project-tags"><span class="tag">Python</span><span class="tag">LangGraph</span><span class="tag">SRE</span></div>
+          <div class="project-name">ZEROMTTR</div><p class="project-desc">A multi-agent incident commander that triages alerts, retrieves runbooks, proposes fixes in Slack, and generates GitHub post-mortems.</p>
+          <details class="project-case-study"><summary>How it works</summary><p><strong>Challenge:</strong> Incident context, runbooks, and follow-up reports are scattered across tools. <strong>Approach:</strong> A Slack gateway routes alerts through specialist agents, retrieves context from a Supabase/pgvector knowledge base, requests human approval for proposed fixes, and records post-mortems in GitHub.</p></details>
+          <a href="https://github.com/shashank41105/ZeroMTTR" target="_blank" rel="noopener noreferrer" class="project-link">View on GitHub →</a></div>
       </div>
-
-      <div class="project-card reveal">
-        <div class="project-thumb" style="background:linear-gradient(135deg,#0a1628,#0d2137,#1a3a5c);">
-          <span style="color:#CCFF00;position:relative;z-index:2;">🎓</span>
-        </div>
-        <div class="project-info">
-          <div class="project-tags"><span class="tag">PHP</span><span class="tag">HTML/CSS</span><span
-              class="tag">MySQL</span></div>
-          <div class="project-name">ONLINE COURSE MANAGEMENT</div>
-          <p class="project-desc">A full-stack web application for managing courses, enrollments, and student progress —
-            built with PHP backend and a Bootstrap-powered frontend.</p>
-          <a href="https://github.com/shashank41105" target="_blank" class="project-link">View on GitHub →</a>
-        </div>
+      <div class="project-card reveal" data-category="agents">
+        <div class="project-thumb" style="background:linear-gradient(135deg,#2a1737,#713f78,#c2415d);"><span style="color:#CCFF00;position:relative;z-index:2;">⚡</span></div>
+        <div class="project-info"><div class="project-tags"><span class="tag">Python</span><span class="tag">LangGraph</span><span class="tag">Docker</span></div>
+          <div class="project-name">CHAOSMIND</div><p class="project-desc">A guarded chaos-engineering workflow that tests resilience, monitors failures, validates code fixes, and can open a GitHub PR after human approval.</p>
+          <details class="project-case-study"><summary>How it works</summary><p><strong>Challenge:</strong> Reliability experiments can cause damage if faults are poorly scoped or fixes are not checked. <strong>Approach:</strong> LangGraph agents propose an experiment, validate it against service allowlists, pause for Slack approval, monitor the result, then gate generated patches with deterministic checks before PR creation.</p></details>
+          <a href="https://github.com/shashank41105/ChaosMind" target="_blank" rel="noopener noreferrer" class="project-link">View on GitHub →</a></div>
       </div>
-
-      <div class="project-card reveal">
-        <div class="project-thumb" style="background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);">
-          <span style="color:#CCFF00;position:relative;z-index:2;">🤖</span>
-        </div>
-        <div class="project-info">
-          <div class="project-tags"><span class="tag">AI</span><span class="tag">Python</span><span
-              class="tag">LLM</span></div>
-          <div class="project-name">AI INSURANCE CLAIMS</div>
-          <p class="project-desc">An AI-powered pipeline for automating insurance claims processing using LLMs, document
-            parsing, and intelligent decision routing.</p>
-          <a href="https://github.com/shashank41105" target="_blank" class="project-link">View on GitHub →</a>
-        </div>
+      <div class="project-card reveal" data-category="rag">
+        <div class="project-thumb" style="background:linear-gradient(135deg,#13233b,#285c87,#48a6a6);"><span style="color:#CCFF00;position:relative;z-index:2;">📄</span></div>
+        <div class="project-info"><div class="project-tags"><span class="tag">Python</span><span class="tag">Ollama</span><span class="tag">LLaVA</span><span class="tag">ChromaDB</span></div>
+          <div class="project-name">CLAIMTRACKR</div><p class="project-desc">A local multimodal RAG pipeline for insurance claim documents, combining visual reasoning with searchable claim evidence.</p>
+          <details class="project-case-study"><summary>How it works</summary><p><strong>Challenge:</strong> Text-only extraction can miss information in claim tables, receipts, and signatures. <strong>Approach:</strong> A local pipeline combines LLaVA visual reasoning, Ollama inference, and ChromaDB retrieval to help answer questions grounded in claim documents.</p></details>
+          <a href="https://github.com/shashank41105/claims_ollama" target="_blank" rel="noopener noreferrer" class="project-link">View on GitHub →</a></div>
       </div>
-
-      <div class="project-card reveal">
-        <div class="project-thumb" style="background:linear-gradient(135deg,#0d0d0d,#1a0a2e,#2d0057);">
-          <span style="color:#CCFF00;position:relative;z-index:2;">🖼️</span>
-        </div>
-        <div class="project-info">
-          <div class="project-tags"><span class="tag">Python</span><span class="tag">OpenCV</span><span
-              class="tag">Image Processing</span></div>
-          <div class="project-name">IMAGE TO SKETCH CONVERTER</div>
-          <p class="project-desc">A computer vision tool that transforms photos into pencil sketch art using edge
-            detection and grayscale transformation techniques.</p>
-          <a href="https://github.com/shashank41105" target="_blank" class="project-link">View on GitHub →</a>
-        </div>
+      <div class="project-card reveal" data-category="rag">
+        <div class="project-thumb" style="background:linear-gradient(135deg,#10152f,#312e81,#7c3aed);"><span style="color:#CCFF00;position:relative;z-index:2;">🌌</span></div>
+        <div class="project-info"><div class="project-tags"><span class="tag">LangGraph</span><span class="tag">FastAPI</span><span class="tag">Ollama</span><span class="tag">React</span></div>
+          <div class="project-name">AUTONOMOUS RESEARCH AGENT</div><p class="project-desc">A stateful research system that searches, synthesizes, and critiques sources, with local semantic memory and a 3D live telemetry dashboard.</p>
+          <details class="project-case-study"><summary>How it works</summary><p><strong>Challenge:</strong> Research questions need iterative source gathering and a way to catch gaps before synthesis. <strong>Approach:</strong> A LangGraph workflow searches and scrapes sources, drafts and reviews findings, recalls related work from local semantic memory, and streams activity to a 3D React dashboard.</p></details>
+          <a href="https://github.com/shashank41105/autonomous-ai-research-agent" target="_blank" rel="noopener noreferrer" class="project-link">View on GitHub →</a></div>
       </div>
-
-      <div class="project-card reveal">
-        <div class="project-thumb" style="background:linear-gradient(135deg,#0a2012,#0d3320,#1a5c3a);">
-          <span style="color:#CCFF00;position:relative;z-index:2;">🏥</span>
-        </div>
-        <div class="project-info">
-          <div class="project-tags"><span class="tag">Node.js</span><span class="tag">JavaScript</span><span
-              class="tag">Healthcare</span></div>
-          <div class="project-name">MEDI-CONNECT APP</div>
-          <p class="project-desc">A healthcare connectivity app built with a custom Node.js server — bridging patients
-            and providers with seamless appointment and data management.</p>
-          <a href="https://github.com/shashank41105" target="_blank" class="project-link">View on GitHub →</a>
-        </div>
+      <div class="project-card reveal" data-category="apps">
+        <div class="project-thumb" style="background:linear-gradient(135deg,#102a2a,#0f766e,#22c55e);"><span style="color:#CCFF00;position:relative;z-index:2;">💬</span></div>
+        <div class="project-info"><div class="project-tags"><span class="tag">Python</span><span class="tag">Slack</span><span class="tag">PostgreSQL</span><span class="tag">Groq</span></div>
+          <div class="project-name">SLACK AI DATA BOT</div><p class="project-desc">Ask business questions in plain English and get guarded SQL answers, charts, and CSV exports directly in Slack.</p>
+          <details class="project-case-study"><summary>How it works</summary><p><strong>Challenge:</strong> Business users often need quick database answers without writing SQL. <strong>Approach:</strong> The bot translates natural-language questions into PostgreSQL queries, blocks destructive statements, retries invalid SQL, and returns readable results with charts or CSV exports in Slack.</p></details>
+          <a href="https://github.com/shashank41105/slack-ai-data-bot" target="_blank" rel="noopener noreferrer" class="project-link">View on GitHub →</a></div>
+      </div>
+      <div class="project-card reveal" data-category="apps">
+        <div class="project-thumb" style="background:linear-gradient(135deg,#422006,#b45309,#f59e0b);"><span style="color:#CCFF00;position:relative;z-index:2;">📈</span></div>
+        <div class="project-info"><div class="project-tags"><span class="tag">Next.js</span><span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">Supabase</span></div>
+          <div class="project-name">MOMENTUM</div><p class="project-desc">A focused daily performance tracker that turns work, gym, and diet check-ins into a weighted score and weekly trends.</p>
+          <details class="project-case-study"><summary>How it works</summary><p><strong>Challenge:</strong> Habit trackers can bury reflection under too many metrics and features. <strong>Approach:</strong> Momentum keeps the daily check-in focused on work, gym, and diet, calculates a weighted 0–100 score, and shows history and weekly signals with local-first storage and optional Supabase sync.</p></details>
+          <a href="https://github.com/shashank41105/Momentum" target="_blank" rel="noopener noreferrer" class="project-link">View on GitHub →</a></div>
       </div>
 
     </div>
@@ -863,6 +887,13 @@
         </svg>
         padalasaishashank@gmail.com
       </a>
+      <a href="assets/Shashank_Resume.docx" download class="contact-link reveal" aria-label="Download Shashank's resume">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+          <path d="m7 10 5 5 5-5M12 15V3" />
+        </svg>
+        Download Résumé
+      </a>
       <a href="https://linkedin.com/in/padala-sai-shashank-300a3b261" target="_blank" class="contact-link reveal">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
           <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
@@ -906,6 +937,13 @@
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
     }, { threshold: 0.12 });
     reveals.forEach(el => io.observe(el));
+    const projectFilters = document.querySelectorAll('.project-filter');
+    const projectCards = document.querySelectorAll('.project-card');
+    projectFilters.forEach(button => button.addEventListener('click', () => {
+      const filter = button.dataset.filter;
+      projectFilters.forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+      projectCards.forEach(card => { card.hidden = filter !== 'all' && card.dataset.category !== filter; });
+    }));
     const navEl = document.querySelector('nav');
     const ul = document.createElement('ul');
     ul.className = 'nav-links';
