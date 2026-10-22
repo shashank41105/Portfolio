@@ -21,6 +21,9 @@
       --card-bg: #1e1e1e;
       --border: #2a2a2a;
       --tag-bg: #222222;
+      --name-highlight: #dfff7b;
+      --name-end: #b6ff00;
+      --name-shadow: rgba(182, 255, 0, 0.2);
     }
 
     [data-theme="light"] {
@@ -32,6 +35,9 @@
       --card-bg: #ffffff;
       --border: #d8d8d8;
       --tag-bg: #e0e0e0;
+      --name-highlight: #dce7ff;
+      --name-end: #2356ff;
+      --name-shadow: rgba(35, 86, 255, 0.2);
     }
 
     *,
@@ -60,13 +66,13 @@
       line-height: 0.88;
       letter-spacing: -1px;
       color: transparent;
-      background: linear-gradient(112deg, #b6ff00 0%, #dfff7b 28%, #fffde8 46%, #d4ff61 64%, #b6ff00 100%);
+      background: linear-gradient(112deg, var(--accent) 0%, var(--name-highlight) 28%, #fffde8 46%, var(--name-highlight) 64%, var(--name-end) 100%);
       background-size: 220% 100%;
       background-position: 100% 50%;
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
-      text-shadow: 0 2px 0 rgba(46, 66, 0, 0.34), 0 10px 28px rgba(182, 255, 0, 0.2);
+      text-shadow: 0 2px 0 color-mix(in srgb, var(--accent) 34%, transparent), 0 10px 28px var(--name-shadow);
       animation: name-light-sweep 8s ease-in-out infinite, name-arrive 900ms cubic-bezier(.2,.75,.2,1) both;
       position: relative;
       z-index: 1;
