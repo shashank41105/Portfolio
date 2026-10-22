@@ -11,9 +11,6 @@
     href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=Caveat:wght@600&display=swap"
     rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
-  <script type="importmap">
-    {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}
-  </script>
   <style>
     :root {
       --accent: #CCFF00;
@@ -62,11 +59,32 @@
       font-size: clamp(52px, 11vw, 150px);
       line-height: 0.88;
       letter-spacing: -1px;
-      color: var(--accent);
-      transition: color 0.4s ease;
+      color: transparent;
+      background: linear-gradient(112deg, #b6ff00 0%, #dfff7b 28%, #fffde8 46%, #d4ff61 64%, #b6ff00 100%);
+      background-size: 220% 100%;
+      background-position: 100% 50%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 2px 0 rgba(46, 66, 0, 0.34), 0 10px 28px rgba(182, 255, 0, 0.2);
+      animation: name-light-sweep 8s ease-in-out infinite, name-arrive 900ms cubic-bezier(.2,.75,.2,1) both;
       position: relative;
       z-index: 1;
       user-select: none;
+    }
+
+    .name-photo-wrap .display-name:nth-of-type(2) {
+      animation-delay: 180ms, 180ms;
+    }
+
+    @keyframes name-light-sweep {
+      0%, 100% { background-position: 100% 50%; }
+      50% { background-position: 0% 50%; }
+    }
+
+    @keyframes name-arrive {
+      from { opacity: 0; transform: translateY(22px); filter: blur(7px); }
+      to { opacity: 1; transform: translateY(0); filter: blur(0); }
     }
 
     .script-logo {
@@ -174,82 +192,11 @@
       overflow: hidden;
     }
 
-    .hero-3d-stage {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      overflow: hidden;
-      pointer-events: none;
-      opacity: 0.76;
-      transition: opacity 0.4s ease;
-    }
-
-    .hero-3d-stage canvas {
-      display: block;
-      width: 100%;
-      height: 100%;
-    }
-
-    .hero-3d-stage::before,
-    .hero-3d-stage::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-    }
-
-    .hero-3d-stage::before {
-      background: radial-gradient(ellipse at center, transparent 24%, color-mix(in srgb, var(--bg) 22%, transparent) 70%, var(--bg) 112%);
-    }
-
-    .hero-3d-stage::after {
-      background: linear-gradient(90deg, color-mix(in srgb, var(--bg) 18%, transparent), transparent 22%, transparent 78%, color-mix(in srgb, var(--bg) 18%, transparent));
-    }
-
-    .hero-fallback-star {
-      display: none;
-      position: absolute;
-      left: 74%;
-      top: 36%;
-      width: clamp(56px, 8vw, 108px);
-      aspect-ratio: 1;
-      background: linear-gradient(145deg, #faffd6 0%, var(--accent) 48%, #80a800 100%);
-      clip-path: polygon(50% 0%, 61% 36%, 98% 36%, 68% 58%, 79% 96%, 50% 73%, 21% 96%, 32% 58%, 2% 36%, 39% 36%);
-      filter: drop-shadow(0 0 16px color-mix(in srgb, var(--accent) 75%, transparent));
-      animation: star-float 5s ease-in-out infinite;
-    }
-
-    .hero-fallback-star--small {
-      left: 66%;
-      top: 25%;
-      width: clamp(14px, 2vw, 24px);
-      animation-delay: -1.8s;
-      opacity: 0.74;
-    }
-
-    .hero-3d-stage.is-unavailable .hero-fallback-star {
-      display: block;
-    }
-
     @media (prefers-reduced-motion: reduce) {
-      .hero-fallback-star {
+      .display-name {
         animation: none;
+        background-position: 50% 50%;
       }
-    }
-
-    #hero > :not(.hero-3d-stage) {
-      position: relative;
-      z-index: 1;
-    }
-
-    [data-theme="light"] .hero-3d-stage {
-      opacity: 0.38;
-      mix-blend-mode: multiply;
-    }
-
-    @keyframes star-float {
-      0%, 100% { transform: translateY(0) rotate(-8deg) scale(0.96); }
-      50% { transform: translateY(-16px) rotate(8deg) scale(1.04); }
     }
 
     .tagline {
@@ -768,15 +715,6 @@
         padding: 100px 20px 60px;
       }
 
-      .hero-3d-stage {
-        inset: 4% -24% 0;
-        opacity: 0.42;
-      }
-
-      .hero-fallback-star {
-        left: 70%;
-        top: 22%;
-      }
 
       .about-inner {
         padding: 60px 20px;
@@ -800,11 +738,6 @@
 
   <!-- ═══ HERO ═══ -->
   <section id="hero" style="max-width:100%;padding-top:120px;">
-    <div class="hero-3d-stage" aria-hidden="true">
-      <canvas id="heroStarCanvas"></canvas>
-      <span class="hero-fallback-star"></span>
-      <span class="hero-fallback-star hero-fallback-star--small"></span>
-    </div>
     <p class="tagline">AI / LLM Engineer · Agentic Systems</p>
     <div class="name-photo-wrap">
       <div class="avatar-circle" id="avatarCircle">
@@ -1047,134 +980,6 @@
     ul.className = 'nav-links';
     ul.innerHTML = '<li><a href="#about">About</a></li><li><a href="#work">Work</a></li><li><a href="#skills">Skills</a></li><li><a href="#contact">Contact</a></li>';
     navEl.insertBefore(ul, navEl.children[1]);
-  </script>
-  <script type="module">
-    import * as THREE from 'three';
-    import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
-
-    const stage = document.querySelector('.hero-3d-stage');
-    const canvas = document.getElementById('heroStarCanvas');
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    try {
-      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: 'low-power' });
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
-      renderer.outputColorSpace = THREE.SRGBColorSpace;
-      renderer.toneMapping = THREE.ACESFilmicToneMapping;
-      renderer.toneMappingExposure = 1.28;
-      renderer.setClearColor(0x000000, 0);
-
-      const scene = new THREE.Scene();
-      const pmrem = new THREE.PMREMGenerator(renderer);
-      scene.environment = pmrem.fromScene(new RoomEnvironment(renderer), 0.04).texture;
-      pmrem.dispose();
-      scene.add(new THREE.HemisphereLight(0xe4f3ff, 0x10141b, 1.45));
-
-      const keyLight = new THREE.DirectionalLight(0xd8ff72, 2.0);
-      keyLight.position.set(4, 5, 5);
-      scene.add(keyLight);
-      const rimLight = new THREE.DirectionalLight(0xb6d8ff, 1.55);
-      rimLight.position.set(-5, 1, -3);
-      scene.add(rimLight);
-
-      const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 100);
-      camera.position.set(0, 0, 8.5);
-      const clock = new THREE.Clock();
-      let inView = true;
-      let starBaseY = 0;
-      const star = new THREE.Group();
-      scene.add(star);
-
-      const makeStarShape = (outerRadius, innerRadius) => {
-        const shape = new THREE.Shape();
-        for (let point = 0; point < 10; point++) {
-          const radius = point % 2 === 0 ? outerRadius : innerRadius;
-          const angle = Math.PI / 2 + point * Math.PI / 5;
-          const x = Math.cos(angle) * radius;
-          const y = Math.sin(angle) * radius;
-          if (point === 0) shape.moveTo(x, y);
-          else shape.lineTo(x, y);
-        }
-        shape.closePath();
-        return shape;
-      };
-
-      const starGeometry = new THREE.ExtrudeGeometry(makeStarShape(1, 0.46), {
-        depth: 0.22,
-        bevelEnabled: true,
-        bevelSegments: 4,
-        bevelSize: 0.08,
-        bevelThickness: 0.07,
-        curveSegments: 2,
-      });
-      starGeometry.center();
-      const starMesh = new THREE.Mesh(starGeometry, new THREE.MeshStandardMaterial({
-        color: 0xb6ff00,
-        emissive: 0x568600,
-        emissiveIntensity: 0.8,
-        metalness: 0.62,
-        roughness: 0.24,
-        envMapIntensity: 1.1,
-      }));
-      star.add(starMesh);
-
-      const inset = new THREE.Mesh(starGeometry.clone(), new THREE.MeshStandardMaterial({
-        color: 0xf7ffc8,
-        emissive: 0xa6c948,
-        emissiveIntensity: 0.36,
-        metalness: 0.42,
-        roughness: 0.3,
-      }));
-      inset.scale.setScalar(0.34);
-      inset.position.set(0, 0, 0.17);
-      star.add(inset);
-
-      const glintGeometry = new THREE.OctahedronGeometry(0.045, 0);
-      const glintMaterial = new THREE.MeshBasicMaterial({ color: 0xf7ffc8 });
-      const glints = [
-        new THREE.Mesh(glintGeometry, glintMaterial),
-        new THREE.Mesh(glintGeometry, glintMaterial),
-      ];
-      glints[0].position.set(-1.25, 0.76, 0.08);
-      glints[1].position.set(1.22, -0.76, -0.08);
-      star.add(...glints);
-
-      const resize = () => {
-        const width = Math.max(1, stage.clientWidth);
-        const height = Math.max(1, stage.clientHeight);
-        const narrow = width < 720;
-        camera.aspect = width / height;
-        camera.fov = narrow ? 47 : 34;
-        camera.position.z = narrow ? 11.7 : 8.5;
-        camera.updateProjectionMatrix();
-        star.scale.setScalar(narrow ? 0.4 : 0.48);
-        starBaseY = narrow ? 1.3 : 0.62;
-        star.position.set(narrow ? 1.7 : 3.25, starBaseY, 0);
-        renderer.setSize(width, height, false);
-      };
-
-      new ResizeObserver(resize).observe(stage);
-      resize();
-      new IntersectionObserver(([entry]) => { inView = entry.isIntersecting; }, { threshold: 0 }).observe(stage);
-
-      renderer.setAnimationLoop(() => {
-        if (!inView || document.hidden) return;
-        const delta = clock.getDelta();
-        if (!reducedMotion) {
-          const elapsed = clock.elapsedTime;
-          star.rotation.y = Math.sin(elapsed * 0.55) * 0.42;
-          star.rotation.z = Math.sin(elapsed * 0.32) * 0.08;
-          star.position.y = starBaseY + Math.sin(elapsed * 1.15) * 0.12;
-          star.scale.setScalar((stage.clientWidth < 720 ? 0.4 : 0.48) * (1 + Math.sin(elapsed * 1.4) * 0.025));
-          glints[0].scale.setScalar(0.7 + (Math.sin(elapsed * 2.1) + 1) * 0.3);
-          glints[1].scale.setScalar(0.7 + (Math.cos(elapsed * 1.7) + 1) * 0.3);
-        }
-        renderer.render(scene, camera);
-      });
-    } catch (error) {
-      console.warn('3D hero is unavailable in this browser.', error);
-      stage.classList.add('is-unavailable');
-    }
   </script>
 </body>
 
